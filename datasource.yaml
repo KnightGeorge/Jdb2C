@@ -1,0 +1,4 @@
+driver : com.mysql.jdbc.Driver
+url : jdbc:mysql://192.168.230.128:3306/edocdb
+username : root
+password : root
