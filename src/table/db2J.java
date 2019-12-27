@@ -28,7 +28,7 @@ public class db2J {
 					w.write("	public "+type+" get"+upFirstChar(fName)+"() {\r\n");
 					w.write("		return "+fName+";\r\n");
 					w.write("	}\r\n");
-					w.write("	public void set"+fName.substring(0, 1).toUpperCase()+"("+type+" "+fName+") {\r\n");
+					w.write("	public void set"+upFirstChar(fName)+"("+type+" "+fName+") {\r\n");
 					w.write("		this."+fName+" = "+fName+";\r\n");
 					w.write("	}\r\n");
 				}
@@ -101,6 +101,11 @@ public class db2J {
 	private String upFirstChar(String text) {
 		char[] cs=text.toCharArray();
 		cs[0]-=32;
-		return String.valueOf(cs);
+		if(cs[0]>='A' && cs[0]>='Z') {
+			return String.valueOf(cs);
+		}else {
+			return text;
+		}
+		
 	}
 }
