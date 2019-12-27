@@ -22,7 +22,15 @@ public class db2J {
 				w.write("package pojo;\r\n");
 				w.write("public class "+s+"{\r\n");
 				for (fontTable f : dn.table(s)) {
-					w.write("private "+propertyType2S(f.getType())+" "+f.getFileName()+";\r\n");
+					String type=propertyType2S(f.getType());
+					String fName=f.getFileName();
+					w.write("	private "+type+" "+fName+";\r\n");
+					w.write("	public "+type+" get"+upFirstChar(fName)+"() {\r\n");
+					w.write("		return "+fName+";\r\n");
+					w.write("	}\r\n");
+					w.write("	public void set"+fName.substring(0, 1).toUpperCase()+"("+type+" "+fName+") {\r\n");
+					w.write("		this."+fName+" = "+fName+";\r\n");
+					w.write("	}\r\n");
 				}
 				w.write("}");
 				w.close();
@@ -34,12 +42,20 @@ public class db2J {
 		}
 	}
 	
-	public Class<?> propertyType(String type) {
-		if(type.startsWith("varchar")) {
+	private Class<?> propertyType(String type) {
+		if(type.indexOf("char")>-1) {
 			return String.class;
-		}else if(type.startsWith("int")) {
+		}else if(type.indexOf("blob")>-1) {
+			return String.class;
+		}else if(type.indexOf("text")>-1) {
+			return Integer.class;
+		}else if(type.indexOf("int")>-1) {
 			return Integer.class;
 		}else if(type.startsWith("date")) {
+			return Date.class;
+		}else if(type.startsWith("time")) {
+			return Date.class;
+		}else if(type.startsWith("year")) {
 			return Date.class;
 		}else if(type.startsWith("boolean")) {
 			return Boolean.class;
@@ -51,15 +67,23 @@ public class db2J {
 			return double.class;
 		}
 		
-		throw new RuntimeException("no such type!");
+		throw new RuntimeException("no such type:"+type);
 	}
 
-	public String propertyType2S(String type) {
-		if(type.startsWith("varchar")) {
+	private String propertyType2S(String type) {
+		if(type.indexOf("char")>-1) {
 			return "String";
-		}else if(type.startsWith("int")) {
+		}else if(type.indexOf("blob")>-1) {
+			return "String";
+		}else if(type.indexOf("text")>-1) {
+			return "Integer";
+		}else if(type.indexOf("int")>-1) {
 			return "Integer";
 		}else if(type.startsWith("date")) {
+			return "Date";
+		}else if(type.startsWith("time")) {
+			return "Date";
+		}else if(type.startsWith("year")) {
 			return "Date";
 		}else if(type.startsWith("boolean")) {
 			return "Boolean";
@@ -71,6 +95,12 @@ public class db2J {
 			return "double";
 		}
 		
-		throw new RuntimeException("no such type!");
+		throw new RuntimeException("no such type:"+type);
+	}
+	
+	private String upFirstChar(String text) {
+		char[] cs=text.toCharArray();
+		cs[0]-=32;
+		return String.valueOf(cs);
 	}
 }
