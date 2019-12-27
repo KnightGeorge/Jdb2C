@@ -28,7 +28,7 @@ public class db2J {
 					w.write("	public "+type+" get"+upFirstChar(fName)+"() {\r\n");
 					w.write("		return "+fName+";\r\n");
 					w.write("	}\r\n");
-					w.write("	public void set"+fName.substring(0, 1).toUpperCase()+"("+type+" "+fName+") {\r\n");
+					w.write("	public void set"+upFirstChar(fName)+"("+type+" "+fName+") {\r\n");
 					w.write("		this."+fName+" = "+fName+";\r\n");
 					w.write("	}\r\n");
 				}
