@@ -48,7 +48,7 @@ public class db2J {
 		}else if(type.indexOf("blob")>-1) {
 			return String.class;
 		}else if(type.indexOf("text")>-1) {
-			return Integer.class;
+			return String.class;
 		}else if(type.indexOf("int")>-1) {
 			return Integer.class;
 		}else if(type.startsWith("date")) {
@@ -76,7 +76,7 @@ public class db2J {
 		}else if(type.indexOf("blob")>-1) {
 			return "String";
 		}else if(type.indexOf("text")>-1) {
-			return "Integer";
+			return "String";
 		}else if(type.indexOf("int")>-1) {
 			return "Integer";
 		}else if(type.startsWith("date")) {
