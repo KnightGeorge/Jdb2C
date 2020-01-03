@@ -101,7 +101,7 @@ public class db2J {
 	private String upFirstChar(String text) {
 		char[] cs=text.toCharArray();
 		cs[0]-=32;
-		if(cs[0]>='A' && cs[0]>='Z') {
+		if(cs[0]>='A' && cs[0]<='Z') {
 			return String.valueOf(cs);
 		}else {
 			return text;
